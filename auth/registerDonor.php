@@ -16,7 +16,7 @@ $email = trim($_POST["email"]);
 if (empty(trim($_POST["email"]))) {
     $email_err = "Please enter email address.";
 } else {
-    $sql = "SELECT id FROM donors WHERE email = ?";
+    $sql = "SELECT id FROM users WHERE email = ?";
 
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("s", $param_email);
@@ -56,13 +56,14 @@ if (empty(trim($_POST["psw_rpt"]))) {
 
 if (empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($error)) {
 
-    $sql = "INSERT INTO donors (email, password) VALUES (?, ?)";
+    $sql = "INSERT INTO users (email, password, role) VALUES (?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("ss", $param_email, $param_password);
 
         $param_email = trim($_POST["email"]);
         $param_password = password_hash($password, PASSWORD_DEFAULT);
+        $param_role = 1;
 
         if ($stmt->execute()) {
             $data['error'] = false;
