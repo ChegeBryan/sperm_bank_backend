@@ -1,7 +1,7 @@
 <?php ob_start();?>
 
 <?php
-require_once 'connection.php';
+require_once '../connection.php';
 
 $email = $password = $confirm_password = "";
 
@@ -66,19 +66,22 @@ if (empty($email_err) && empty($password_err) && empty($confirm_password_err) &&
         $param_role = 1;
 
         if ($stmt->execute()) {
-            $data['error'] = false;
-            $data['message'] = 'Registered successfully.';
+            $response['error'] = false;
+            $response['message'] = 'Registered successfully.';
         } else {
-            $data['error'] = true;
-            $data['message'] = 'Something went wrong.';
+            $response['error'] = true;
+            $response['message'] = 'Something went wrong.';
         }
         $stmt->close();
     }
 } else {
-    $data['error'] = false;
-    $data['email_error'] = $email_err;
-    $data['password_error'] = $password_err;
-    $data['confirm_password_error'] = $confirm_password_err;
+    $response['error'] = false;
+    $response['data'] = array(
+        'email_error' => $email_err,
+        'password_error' => $password_err,
+        'confirm_password_error' => $confirm_password_err,
+    );
+    $response['message'] = "One or more fields has an error";
 }
-
+$conn->close();
 echo json_encode($response);
