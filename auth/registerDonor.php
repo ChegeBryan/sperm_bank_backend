@@ -59,7 +59,7 @@ if (empty($email_err) && empty($password_err) && empty($confirm_password_err) &&
     $sql = "INSERT INTO users (email, password, role) VALUES (?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ss", $param_email, $param_password);
+        $stmt->bind_param("ssi", $param_email, $param_password, $param_role);
 
         $param_email = trim($_POST["email"]);
         $param_password = password_hash($password, PASSWORD_DEFAULT);
