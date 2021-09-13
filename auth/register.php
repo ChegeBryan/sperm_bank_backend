@@ -12,6 +12,7 @@ $error = "";
 $response = array();
 
 $email = trim($_POST["email"]);
+$role = $_POST["role"];
 
 if (empty(trim($_POST["email"]))) {
     $email_err = "Please enter email address.";
@@ -63,7 +64,7 @@ if (empty($email_err) && empty($password_err) && empty($confirm_password_err) &&
 
         $param_email = trim($_POST["email"]);
         $param_password = password_hash($password, PASSWORD_DEFAULT);
-        $param_role = 1;
+        $param_role = intval($role); // admin
 
         if ($stmt->execute()) {
             $response['error'] = false;
@@ -79,9 +80,11 @@ if (empty($email_err) && empty($password_err) && empty($confirm_password_err) &&
     $response['data'] = array(
         'email_error' => $email_err,
         'password_error' => $password_err,
-        'confirm_password_error' => $confirm_password_err,
+        'confirm_password_error' => $confirm_password,
     );
-    $response['message'] = "One or more fields has an error";
+    $response['message'] = "One or more fields have an error.";
+
 }
 $conn->close();
+
 echo json_encode($response);
