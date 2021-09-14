@@ -12,7 +12,7 @@ $sql = "DELETE FROM sperm_banks WHERE id = ?";
 if ($stmt = $conn->prepare($sql)) {
     $stmt->bind_param("i", $param_id);
 
-    $param_id = $_POST["id"];
+    $param_id = intval($_POST["id"]);
 
     if ($stmt->execute()) {
         $response['error'] = false;

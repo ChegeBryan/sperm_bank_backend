@@ -36,7 +36,7 @@ if (empty($name_err) && empty($error)) {
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("ssi", $param_name, $param_location, $param_id);
 
-        $param_id = $_POST["id"];
+        $param_id = intval($_POST["id"]);
         $param_name = trim($_POST["name"]);
         $param_location = trim($_POST["location"]);
 
