@@ -37,6 +37,7 @@ if (empty($email_err) && empty($password_err) && empty('error')) {
                         $response['data'] = array(
                             'user_id' => $id,
                             'email' => $email,
+                            'role' => 'admin',
                         );
                         $response["message"] = 'Login successful.';
                     } else {
