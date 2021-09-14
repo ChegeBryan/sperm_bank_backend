@@ -41,10 +41,23 @@ if (empty($email_err) && empty($password_err) && empty('error')) {
                         $response["message"] = 'Login successful.';
                     } else {
                         $password_err = "The password you entered was not valid.";
+
+                        $response["error"] = true;
+                        $response['data'] = array(
+                            'password_error' => $password_err,
+                        );
+                        $response["message"] = 'Login failed.';
                     }
                 }
             } else {
                 $email_err = "No account found with that email.";
+
+                $response["error"] = true;
+                $response['data'] = array(
+                    'email_error' => $email_err,
+                );
+                $response["message"] = 'Login failed.';
+
             }
         } else {
             $response['error'] = true;
