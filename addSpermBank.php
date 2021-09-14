@@ -40,10 +40,10 @@ if (empty(trim($_POST["name"]))) {
 
 if (empty($name_err) && empty($error)) {
 
-    $sql = "INSERT INTO sperm_banks (name, location) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO sperm_banks (name, location) VALUES (?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssi", $param_name, $param_location, $param_role);
+        $stmt->bind_param("ss", $param_name, $param_location);
 
         $param_name = $name;
         $param_location = $location;
@@ -59,6 +59,9 @@ if (empty($name_err) && empty($error)) {
     }
 } else {
     $response['error'] = true;
+    $response['data'] = array(
+        'name_error' => $name_err,
+    );
     $response['message'] = "One or more fields have an error.";
 
 }
