@@ -19,7 +19,7 @@ if (empty(trim($_POST["password"]))) {
     $password = trim($_POST["password"]);
 }
 
-if (empty($email_err) && empty($password_err) && empty('error')) {
+if (empty($email_err) && empty($password_err)) {
     $sql = "SELECT id, email, password FROM users WHERE email = ?";
 
     if ($stmt = $conn->prepare($sql)) {
