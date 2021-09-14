@@ -55,6 +55,7 @@ if (empty($email_err) && empty($error)) {
             $response['data'] = array(
                 'email' => $email,
                 'role' => 'admin',
+                'user_id', $stmt->insert_id,
             );
             $response['message'] = 'Registered successfully.';
         } else {
