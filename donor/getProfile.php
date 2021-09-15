@@ -10,7 +10,7 @@ $sql = "SELECT * FROM profiles WHERE donor_id = ?";
 
 if ($stmt = $conn->prepare($sql)) {
     $stmt->bind_param("i", $param_id);
-    $param_name = intval($_POST["id"]);
+    $param_id = intval($_POST['id']);
 
     if ($stmt->execute()) {
         $result = $stmt->get_result();
@@ -31,6 +31,7 @@ if ($stmt = $conn->prepare($sql)) {
     $response['error'] = true;
     $response['message'] = "Could not able to process request.";
 }
+echo ($conn->info);
 
 $conn->close();
 
