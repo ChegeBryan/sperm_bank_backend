@@ -48,14 +48,14 @@ if (empty($email_err) && empty($error)) {
 
         $param_email = $email;
         $param_password = password_hash($password, PASSWORD_DEFAULT);
-        $param_role = intval($role); // admin
+        $param_role = intval($role);
 
         if ($stmt->execute()) {
             $response['error'] = false;
             $response['data'] = array(
                 'email' => $email,
                 'role' => 'admin',
-                'user_id', $stmt->insert_id,
+                'user_id' => $stmt->insert_id,
             );
             $response['message'] = 'Registered successfully.';
         } else {
