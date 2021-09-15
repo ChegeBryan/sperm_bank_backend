@@ -6,23 +6,6 @@ require_once '../connection.php';
 
 $response = array();
 
-$sql = "SELECT id, name FROM sperm_banks";
-
-if ($stmt = $conn->prepare($sql)) {
-    if ($stmt->execute()) {
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $data = $result->fetch_all(MYSQLI_ASSOC);
-            $response['sperm_banks'] = $data;
-            $result->free();
-        } else {
-            $response['sperm_banks'] = array();
-        }
-    }
-    $stmt->close();
-}
-
 $sql = "SELECT * FROM profiles WHERE donor_id = ?";
 
 if ($stmt = $conn->prepare($sql)) {
@@ -48,7 +31,6 @@ if ($stmt = $conn->prepare($sql)) {
     $response['error'] = true;
     $response['message'] = "Could not able to process request.";
 }
-echo ($conn->info);
 
 $conn->close();
 
